@@ -13,4 +13,4 @@
 
 Notes
 
-Ao realizar o acesso em PortalClient é pedido o cpf e idade desse usuário, e através desses dados é enviado ao PortalAdm uma requisição de inserir esse cliente no banco de dados. Também há a possibilidade de inserir um cliente pelo próprio portal do administrador.
+Ao realizar o acesso em PortalClient, é solicitado o cpf e idade do usuário, e através desses dados é enviada ao PortalAdm uma requisição de inserir esse cliente no banco de dados. Também há a possibilidade de inserir um cliente pelo próprio portal do administrador.
