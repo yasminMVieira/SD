@@ -21,6 +21,10 @@ public class PortalClient {
         Scanner s = new Scanner(System.in);
 
         try {
+            TTransport transport = new TSocket("localhost", 9090);
+            transport.open();
+            TProtocol protocol = new  TBinaryProtocol(transport);
+            Portal.Client client = new Portal.Client(protocol);
 
             //-----
             int servidor = 0;
@@ -33,6 +37,8 @@ public class PortalClient {
 
 
             do{
+                System.out.printf("Digite seu id: ");
+                id = s.next();
 
                 System.out.println("Menu:");
                 System.out.println("[1]Inserir tarefa");
@@ -47,17 +53,14 @@ public class PortalClient {
                 switch(opcao){
 
                     case 1:
-                        System.out.printf("Id do cliente: "+ id);
+
                         System.out.println("\nDigite os dados da tarefa:");
                         System.out.println("Titulo: ");
                         String titulo = s.next();
                         System.out.println("Descrição: ");
                         String descricao = s.next();
 
-                        TTransport transport = new TSocket("localhost", 9090);
-                        transport.open();
-                        TProtocol protocol = new  TBinaryProtocol(transport);
-                        Portal.Client client = new Portal.Client(protocol);
+
 
                         //servidor = retornaServidorV(id);
 
@@ -186,8 +189,3 @@ public class PortalClient {
         return uniqueID;
     }
 }
-
-
-
-
-
