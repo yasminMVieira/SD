@@ -14,13 +14,16 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
+import static java.lang.System.exit;
+
 
 public class PortalAdm {
     public static void main(String[] args) {
         int opcao;             
 	    Scanner s = new Scanner(System.in);
 
-        try {   
+        try {
+
 
             //-----
             int servidor = 0;
@@ -49,7 +52,7 @@ public class PortalAdm {
                     case 1:
                         id = criaId();
                         System.out.printf("Id do cliente: "+id);
-                        System.out.println("\nDigite os dados do cliente:\n");
+                        System.out.println("\nDigite os dados do cliente:");
                         System.out.println("Idade: ");
                         int idade = s.nextInt();
                         System.out.println("CPF: ");
@@ -87,7 +90,7 @@ public class PortalAdm {
                         transport.open();
                         protocol = new  TBinaryProtocol(transport);
                         client = new Portal.Client(protocol);
-                                        
+
                         retorno = client.modificarCliente(id, idade, cpf);
                         if(retorno == true){
                             System.out.println("\nCliente modificado com sucesso!\n");
@@ -102,6 +105,7 @@ public class PortalAdm {
                     case 3: 
                         System.out.println("Informe o id do cliente a ser removido");
                         id = s.next();
+
                         transport = new TSocket("localhost", 9090);
                         transport.open();
                         protocol = new  TBinaryProtocol(transport);
@@ -125,11 +129,10 @@ public class PortalAdm {
                         protocol = new  TBinaryProtocol(transport);
                         client = new Portal.Client(protocol);
 
-
                         cliente = client.recuperarCliente(id);
 
                         if(cliente != null){
-                            //System.out.println("Cliente ID: " + cliente.id);
+                            System.out.println("Cliente ID: " + cliente.id);
                             System.out.println("Idade: " + cliente.idade);
                             System.out.println("CPF: " + cliente.cpf);
                             System.out.println("\n");
@@ -138,8 +141,9 @@ public class PortalAdm {
                             System.out.println("Cliente nao está na hash");
                             break;
                         }
-                    break; 
-                    
+                    break;
+                    case 5:
+                        exit(1);
                     default:
                         System.out.println("Esta opçao nao e valida\n");
                 }
@@ -161,5 +165,3 @@ public class PortalAdm {
 
 
   
-
-
