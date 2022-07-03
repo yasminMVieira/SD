@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
+import static java.lang.System.exit;
+
 
 public class PortalClient {
     public static void main(String[] args) {
@@ -21,10 +23,6 @@ public class PortalClient {
         Scanner s = new Scanner(System.in);
 
         try {
-            TTransport transport = new TSocket("localhost", 9090);
-            transport.open();
-            TProtocol protocol = new  TBinaryProtocol(transport);
-            Portal.Client client = new Portal.Client(protocol);
 
             //-----
             int servidor = 0;
@@ -35,10 +33,10 @@ public class PortalClient {
             int hash, porta;
             //-----
 
+            System.out.printf("Digite seu id: ");
+            id = s.next();
 
             do{
-                System.out.printf("Digite seu id: ");
-                id = s.next();
 
                 System.out.println("Menu:");
                 System.out.println("[1]Inserir tarefa");
@@ -53,14 +51,16 @@ public class PortalClient {
                 switch(opcao){
 
                     case 1:
-
                         System.out.println("\nDigite os dados da tarefa:");
                         System.out.println("Titulo: ");
                         String titulo = s.next();
                         System.out.println("Descrição: ");
                         String descricao = s.next();
 
-
+                        TTransport transport = new TSocket("localhost", 9090);
+                        transport.open();
+                        TProtocol protocol = new  TBinaryProtocol(transport);
+                        Portal.Client client = new Portal.Client(protocol);
 
                         //servidor = retornaServidorV(id);
 
@@ -101,9 +101,6 @@ public class PortalClient {
                         break;
 
                     case 3:
-                        System.out.println("Informe o id do cliente");
-                        id = s.next();
-
                         transport = new TSocket("localhost", 9090);
                         transport.open();
                         protocol = new  TBinaryProtocol(transport);
@@ -115,7 +112,7 @@ public class PortalClient {
 
                         if(tar != null){
                             for(j =0; j < tar.size(); j++){
-                                System.out.println("Tarefa: "+ tar.get(j).titulo + "\n Descrição: " + tar.get(j).descricao);
+                                System.out.println("Tarefa: "+ tar.get(j).titulo + "\nDescrição: " + tar.get(j).descricao);
                             }
                         }
                         else
@@ -125,9 +122,6 @@ public class PortalClient {
                         break;
 
                     case 4:
-                        System.out.println("Informe o id do cliente");
-                        id = s.next();
-
                         transport = new TSocket("localhost", 9090);
                         transport.open();
                         protocol = new  TBinaryProtocol(transport);
@@ -146,8 +140,6 @@ public class PortalClient {
                         transport.close() ;
                         break;
                     case 5:
-                        System.out.println("Informe o id do cliente");
-                        id = s.next();
                         System.out.println("Informe o titulo da tarefa");
                         titulo = s.next();
 
@@ -169,8 +161,7 @@ public class PortalClient {
                         transport.close() ;
                         break;
                     case 6:
-
-
+                        exit(1);
                     default:
                         System.out.println("Esta opçao nao e valida\n");
                 }
@@ -182,10 +173,4 @@ public class PortalClient {
         }
     }
 
-
-    //cria Id unico
-    public static String criaId() {
-        String uniqueID = UUID.randomUUID().toString();
-        return uniqueID;
-    }
 }
