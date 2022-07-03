@@ -51,7 +51,7 @@ public class PortalClient {
                 switch(opcao){
 
                     case 1:
-                        System.out.println("\nDigite os dados da tarefa:");
+                        System.out.println("\n-Digite os dados da tarefa-");
                         System.out.println("Titulo: ");
                         String titulo = s.next();
                         System.out.println("Descrição: ");
@@ -66,7 +66,7 @@ public class PortalClient {
 
                         retorno = client.inserirTarefa(id, titulo, descricao);
                         if(retorno == false){
-                            System.out.println("\nOperação inválida, tarefa ja existe!\n");
+                            System.out.println("\nOperação inválida, tarefa já existe!\n");
                         }
                         else{
                             System.out.println("\nTarefa adicionada com sucesso!\n");
@@ -77,7 +77,7 @@ public class PortalClient {
 
                         break;
                     case 2:
-                        System.out.println("Digite os dados da tarefa:\n");
+                        System.out.println("-Digite os dados da tarefa-");
                         System.out.println("Titulo: ");
                         titulo = s.next();
                         System.out.println("Descrição: ");
@@ -94,7 +94,7 @@ public class PortalClient {
                             System.out.println("\nTarefa modificada com sucesso!\n");
                         }
                         else{
-                            System.out.println("\nTarefa nao existe\n ");
+                            System.out.println("\nTarefa não existe\n ");
                         }
                         System.out.println(retorno);
                         transport.close() ;
@@ -112,11 +112,11 @@ public class PortalClient {
 
                         if(tar != null){
                             for(j =0; j < tar.size(); j++){
-                                System.out.println("Tarefa: "+ tar.get(j).titulo + "\nDescrição: " + tar.get(j).descricao);
+                                System.out.println("Tarefa: "+ tar.get(j).titulo + "\nDescrição: " + tar.get(j).descricao + "\n");
                             }
                         }
                         else
-                            System.out.println("\nCliente nao encontrado!\n");
+                            System.out.println("\nCliente não encontrado!\n");
 
                         transport.close();
                         break;
@@ -131,16 +131,16 @@ public class PortalClient {
                         retorno = client.apagarTarefas(id);
 
                         if(retorno == true){
-                            System.out.println("\nTarefa modificada com sucesso!\n");
+                            System.out.println("\nTarefas excluidas!\n");
                         }
                         else{
-                            System.out.println("\nTarefa nao existe\n ");
+                            System.out.println("\nCliente sem tarefas!\n ");
                         }
                         System.out.println(retorno);
                         transport.close() ;
                         break;
                     case 5:
-                        System.out.println("Informe o titulo da tarefa");
+                        System.out.println("Informe o titulo da tarefa:");
                         titulo = s.next();
 
                         transport = new TSocket("localhost", 9090);
@@ -155,7 +155,7 @@ public class PortalClient {
                             System.out.println("\nTarefa removida com sucesso!\n");
                         }
                         else{
-                            System.out.println("\nTarefa nao existe\n ");
+                            System.out.println("\nTarefa não existe\n ");
                         }
                         System.out.println(retorno);
                         transport.close() ;
@@ -163,7 +163,7 @@ public class PortalClient {
                     case 6:
                         exit(1);
                     default:
-                        System.out.println("Esta opçao nao e valida\n");
+                        System.out.println("Esta opção não é valida\n");
                 }
             }while(opcao != -1);
         }catch (IdNotFound i) {
