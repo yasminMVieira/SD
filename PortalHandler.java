@@ -28,16 +28,17 @@ public class PortalHandler implements Portal.Iface {
             InterruptedException ex;
         }
 
+        Cliente cliente = new Cliente(id, idade, cpf, null);
 
-        if (recuperarCliente(id) == null) { //verifica se ja existente
-            Cliente cliente = new Cliente(id, idade, cpf, null);
+        if (cid.containsValue(cliente.cpf)) { //verifica se ja existe
+            semaphore.release();
+            return false;
+        }
+        else{
+
             cid.put(id, cliente);
             semaphore.release();
             return true;
-        }
-        else{
-            semaphore.release();
-            return false;
         }
 
     }
@@ -243,5 +244,3 @@ public class PortalHandler implements Portal.Iface {
 
 
 }
-
-
