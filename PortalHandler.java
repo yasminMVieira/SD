@@ -121,9 +121,10 @@ public class PortalHandler implements Portal.Iface {
 
         //verifica se ja existe tarefa de mesmo titulo
         if (recuperarCliente(id).tarefas != null) {
+            System.out.println("ja temn nome");
             for(i=0; i< recuperarCliente(id).tarefas.size(); i++){
 
-                if(titulo == recuperarCliente(id).tarefas.get(i).getTitulo()){
+                if(titulo.equals(recuperarCliente(id).tarefas.get(i).getTitulo())){
                     semaphore.release();
                     return false;
                 }
@@ -163,7 +164,7 @@ public class PortalHandler implements Portal.Iface {
 
         if (recuperarCliente(id).tarefas != null) { //verifica se existe tarefas
             for (i = 0; i < recuperarCliente(id).tarefas.size(); i++) {
-                if (recuperarCliente(id).tarefas.get(i).titulo == titulo) {
+                if (recuperarCliente(id).tarefas.get(i).titulo.equals(titulo)) {
                     recuperarCliente(id).tarefas.get(i).setDescricao(descricao);
                     semaphore.release();
                     aux = true;
@@ -199,6 +200,7 @@ public class PortalHandler implements Portal.Iface {
 
 
         if (recuperarCliente(id).tarefas != null) {
+            System.out.println("entrei p clear");
             recuperarCliente(id).tarefas.clear();
             semaphore.release();
             return true;
@@ -228,7 +230,7 @@ public class PortalHandler implements Portal.Iface {
 
         if (recuperarCliente(id).tarefas != null) { //verifica se ja existente
             for (i = 0; i < recuperarCliente(id).tarefas.size(); i++) {
-                if (recuperarCliente(id).tarefas.get(i).titulo == titulo) {
+                if (recuperarCliente(id).tarefas.get(i).titulo.equals(titulo)) {
                     recuperarCliente(id).tarefas.remove(i);
                     semaphore.release();
                     aux = true;
@@ -243,5 +245,3 @@ public class PortalHandler implements Portal.Iface {
 
 
 }
-
-
