@@ -121,7 +121,6 @@ public class PortalHandler implements Portal.Iface {
 
         //verifica se ja existe tarefa de mesmo titulo
         if (recuperarCliente(id).tarefas != null) {
-            System.out.println("ja temn nome");
             for(i=0; i< recuperarCliente(id).tarefas.size(); i++){
 
                 if(titulo.equals(recuperarCliente(id).tarefas.get(i).getTitulo())){
@@ -200,7 +199,6 @@ public class PortalHandler implements Portal.Iface {
 
 
         if (recuperarCliente(id).tarefas != null) {
-            System.out.println("entrei p clear");
             recuperarCliente(id).tarefas.clear();
             semaphore.release();
             return true;
@@ -245,3 +243,5 @@ public class PortalHandler implements Portal.Iface {
 
 
 }
+
+
