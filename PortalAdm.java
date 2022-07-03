@@ -52,7 +52,7 @@ public class PortalAdm {
                     case 1:
                         id = criaId();
                         System.out.printf("Id do cliente: "+id);
-                        System.out.println("\nDigite os dados do cliente:");
+                        System.out.println("\n-Digite os dados do cliente-");
                         System.out.println("Idade: ");
                         int idade = s.nextInt();
                         System.out.println("CPF: ");
@@ -67,7 +67,7 @@ public class PortalAdm {
                         
                         retorno = client.inserirCliente(id, idade, cpf);
                         if(retorno == false){
-                            System.out.println("\nOperação inválida, cliente ja existe!\n");
+                            System.out.println("\nOperação inválida, cliente já existe!\n");
                         } 
                         else{
                             System.out.println("\nCliente adicionado com sucesso!\n");    
@@ -78,7 +78,7 @@ public class PortalAdm {
                                                 
                     break;
                     case 2:
-                        System.out.println("Digite os dados do cliente:\n");
+                        System.out.println("-Digite os dados do cliente-");
                         System.out.println("Id: ");
                         id = s.next();
                         System.out.println("Idade: ");
@@ -96,14 +96,14 @@ public class PortalAdm {
                             System.out.println("\nCliente modificado com sucesso!\n");
                         } 
                         else{
-                            System.out.println("\nCliente nao existe\n ");
+                            System.out.println("\nCliente não existe\n ");
                         }  
                         System.out.println(retorno);
                         transport.close() ;
                     break;
                         
                     case 3: 
-                        System.out.println("Informe o id do cliente a ser removido");
+                        System.out.println("Informe o id do cliente a ser removido:");
                         id = s.next();
 
                         transport = new TSocket("localhost", 9090);
@@ -121,7 +121,7 @@ public class PortalAdm {
                     break;
                     
                     case 4:
-                        System.out.println("Informe o id do cliente a ser recuperado");
+                        System.out.println("Informe o id do cliente a ser recuperado:");
                         id = s.next();
 
                         transport = new TSocket("localhost", 9090);
@@ -132,20 +132,21 @@ public class PortalAdm {
                         cliente = client.recuperarCliente(id);
 
                         if(cliente != null){
-                            System.out.println("Cliente ID: " + cliente.id);
+                            System.out.println("\nCliente ID: " + cliente.id);
                             System.out.println("Idade: " + cliente.idade);
                             System.out.println("CPF: " + cliente.cpf);
+                            System.out.println("Tarefas: " + cliente.tarefas);
                             System.out.println("\n");
                         }
                         else{
-                            System.out.println("Cliente nao está na hash");
+                            System.out.println("Cliente não está na hash");
                             break;
                         }
                     break;
                     case 5:
                         exit(1);
                     default:
-                        System.out.println("Esta opçao nao e valida\n");
+                        System.out.println("Esta opção nao é valida\n");
                 }
             }while(opcao != -1); 
         }catch (IdNotFound i) {
@@ -162,6 +163,3 @@ public class PortalAdm {
         return uniqueID;
     }
 }
-
-
-  
