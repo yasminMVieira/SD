@@ -12,7 +12,7 @@ import org.apache.thrift.transport.TTransport;
 import java.lang.String;
 import java.util.List;
 import java.util.Scanner;
-import java.util.UUID;
+
 
 import static java.lang.System.exit;
 
@@ -33,8 +33,13 @@ public class PortalClient {
             int hash, porta;
             //-----
 
-            System.out.printf("Digite seu id: ");
-            id = s.next();
+            System.out.println("Digite seu cpf: ");
+            int cpf = s.nextInt();
+            System.out.println("Digite sua idade: ");
+            int idade = s.nextInt();
+
+            id = PortalAdm.receberCliente(idade, cpf);
+            System.out.println("Seu ID é: " + id + "\n");
 
             do{
 
@@ -44,14 +49,14 @@ public class PortalClient {
                 System.out.println("[3]Listar Tarefas");
                 System.out.println("[4]Apagar Tarefas");
                 System.out.println("[5]Apagar Tarefa Especifica");
-                System.out.println("[6]Sair\n");
+                System.out.println("[6]Sair");
 
                 opcao = s.nextInt();
 
                 switch(opcao){
 
                     case 1:
-                        System.out.println("\n-Digite os dados da tarefa-");
+                        System.out.println("\n--Digite os dados da tarefa--\n");
                         System.out.println("Titulo: ");
                         String titulo = s.next();
                         System.out.println("Descrição: ");
@@ -62,27 +67,25 @@ public class PortalClient {
                         TProtocol protocol = new  TBinaryProtocol(transport);
                         Portal.Client client = new Portal.Client(protocol);
 
-                        //servidor = retornaServidorV(id);
-
                         retorno = client.inserirTarefa(id, titulo, descricao);
+
                         if(retorno == false){
                             System.out.println("\nOperação inválida, tarefa já existe!\n");
                         }
                         else{
                             System.out.println("\nTarefa adicionada com sucesso!\n");
                         }
-                        System.out.println(retorno);
-                        transport.close() ;
+
+                        transport.close();
                         //-----
 
                         break;
                     case 2:
-                        System.out.println("-Digite os dados da tarefa-");
+                        System.out.println("--Digite os dados da tarefa--\n");
                         System.out.println("Titulo: ");
                         titulo = s.next();
                         System.out.println("Descrição: ");
                         descricao = s.next();
-
 
                         transport = new TSocket("localhost", 9090);
                         transport.open();
@@ -90,16 +93,16 @@ public class PortalClient {
                         client = new Portal.Client(protocol);
 
                         retorno = client.modificarTarefa(id, titulo, descricao);
+
                         if(retorno == true){
                             System.out.println("\nTarefa modificada com sucesso!\n");
                         }
                         else{
                             System.out.println("\nTarefa não existe\n ");
                         }
-                        System.out.println(retorno);
-                        transport.close() ;
-                        break;
 
+                        transport.close();
+                        break;
                     case 3:
                         transport = new TSocket("localhost", 9090);
                         transport.open();
@@ -112,7 +115,7 @@ public class PortalClient {
 
                         if(tar != null){
                             for(j =0; j < tar.size(); j++){
-                                System.out.println("Tarefa: "+ tar.get(j).titulo + "\nDescrição: " + tar.get(j).descricao + "\n");
+                                System.out.println("\nTarefa: "+ tar.get(j).titulo + "\nDescrição: " + tar.get(j).descricao + "\n");
                             }
                         }
                         else
@@ -127,7 +130,6 @@ public class PortalClient {
                         protocol = new  TBinaryProtocol(transport);
                         client = new Portal.Client(protocol);
 
-
                         retorno = client.apagarTarefas(id);
 
                         if(retorno == true){
@@ -136,18 +138,17 @@ public class PortalClient {
                         else{
                             System.out.println("\nCliente sem tarefas!\n ");
                         }
-                        System.out.println(retorno);
-                        transport.close() ;
+
+                        transport.close();
                         break;
                     case 5:
-                        System.out.println("Informe o titulo da tarefa:");
+                        System.out.println("\nInforme o titulo da tarefa:");
                         titulo = s.next();
 
                         transport = new TSocket("localhost", 9090);
                         transport.open();
                         protocol = new  TBinaryProtocol(transport);
                         client = new Portal.Client(protocol);
-
 
                         retorno = client.apagarTarefa(id, titulo);
 
@@ -157,13 +158,13 @@ public class PortalClient {
                         else{
                             System.out.println("\nTarefa não existe\n ");
                         }
-                        System.out.println(retorno);
-                        transport.close() ;
+
+                        transport.close();
                         break;
                     case 6:
                         exit(1);
                     default:
-                        System.out.println("Esta opção não é valida\n");
+                        System.out.println("\nEsta opção não é valida\n");
                 }
             }while(opcao != -1);
         }catch (IdNotFound i) {
